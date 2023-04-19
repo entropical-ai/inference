@@ -1,11 +1,11 @@
 from fastapi import FastAPI, Request, Response
 from transformers import AutoTokenizer, AutoModel, DPRContextEncoder
 
-tokenizer_q = AutoTokenizer.from_pretrained("vblagoje/dpr-question_encoder-single-lfqa-wiki")
-model_q = AutoModel.from_pretrained("vblagoje/dpr-question_encoder-single-lfqa-wiki")
+tokenizer_q = AutoTokenizer.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
+model_q = AutoModel.from_pretrained("facebook/dpr-question_encoder-single-nq-base")
 
-tokenizer_ctx = AutoTokenizer.from_pretrained("vblagoje/dpr-ctx_encoder-single-lfqa-wiki")
-model_ctx = DPRContextEncoder.from_pretrained("vblagoje/dpr-ctx_encoder-single-lfqa-wiki")
+tokenizer_ctx = AutoTokenizer.from_pretrained("facebook/dpr-ctx_encoder-single-nq-base")
+model_ctx = DPRContextEncoder.from_pretrained("facebook/dpr-ctx_encoder-single-nq-base")
 
 app = FastAPI()
 
