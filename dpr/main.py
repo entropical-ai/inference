@@ -15,7 +15,9 @@ app = FastAPI()
 async def embed_question(request: Request):
     p = await request.json()
     input_ids = tokenizer_q(p['text'], return_tensors="pt")["input_ids"]
-    embedding = model_q(input_ids).pooler_output
+    if len(input_ids) > 512:
+        print("Too many tokens in question: %s. Cutting off at 512."(str(len(input_ids))))
+    embedding = model_q(input_ids[:512]).pooler_output
     return [float(y) for y in embedding[0]]
 
 # Params:
@@ -24,7 +26,9 @@ async def embed_question(request: Request):
 async def embed_context(request: Request):
     p = await request.json()
     input_ids = tokenizer_ctx(p['text'], return_tensors="pt")["input_ids"]
-    embedding = model_ctx(input_ids).pooler_output
+    if len(input_ids) > 512:
+        print("Too many tokens in context: %s. Cutting off at 512." % (str(len(input_ids))))
+    embedding = model_ctx(input_ids[:512]).pooler_output
     return [float(y) for y in embedding[0]]
 
 
